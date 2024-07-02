@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("../PartialViews/head")%>
+<body>
+    <%- include("../PartialViews/nav")%>
+    
+    <h1>Upload Page</h1>
+    <form action="/user" method="post">
+        <label for="name">User Name:</label>
+        <input type="text" placeholder="Your Name" id="name" name="username">
+        <label for="age">User Age:</label>
+        <input type="text" placeholder="Your Name" id="age" name="age">
+        <label for="des">Description:</label>
+        <input type="text" id="des" name="description"/>
+        <button>Submit</button>
+    </form>
+</body>
+</html>

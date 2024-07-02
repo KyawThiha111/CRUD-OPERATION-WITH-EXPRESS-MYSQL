@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("../PartialViews/head")%>
+<body>
+    <%- include("../PartialViews/nav")%>
+    <h2>Profile Page</h2>
+
+    <% if(user.length>0){%>
+        <%user.forEach(element => {%>
+            <h1><%= element.username%></h1>
+            <h1><%= element.age%></h1>
+            <button><a href="/user/personDetails/<%=element.id%>">See More</a></button>
+        <%})%>
+    <%}else{%>
+        <h1>No posts</h1>
+    <%}%>
+
+    <p> <a href="/user/update_page">Add Post</a></p>
+</body>
+</html>
