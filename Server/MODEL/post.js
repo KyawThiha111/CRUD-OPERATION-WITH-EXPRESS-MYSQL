@@ -1,19 +1,25 @@
-const database = require("../utils/database");
-module.exports = class Post{
-    constructor(username,age,description,id){
-        this.username = username,
-        this.age = age,
-        this.description = description,
-        this.id = id
-    }
-    setPost(){
-       return database.execute("INSERT INTO posts(username,age,description) VALUES(?,?,?)",[this.username,this.age,this.description])
-    }
-    static getDataFun(){
-        return database.execute("SELECT * FROM posts");
-    }
+const {Sequelize,DataTypes, NUMBER, STRING, INTEGER} = require("sequelize");
+const {database} = require("../utils/database")
 
-    static getEachData(id){
-        return database.execute("SELECT * FROM posts WHERE id=?",[id])
+const Posts = database.define('posts',{
+    username:{
+        type: DataTypes.STRING,
+        allowNull:false,
+    },
+    age: {
+        type: INTEGER,
+        allowNull:false
+    },
+    description:{
+        type:STRING,
+        allowNull:false
+    },
+    id:{
+       type: INTEGER,
+       allowNull:false,
+       autoIncrement: true,
+       primaryKey:true
     }
-}
+})
+
+module.exports = Posts;

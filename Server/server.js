@@ -2,7 +2,8 @@ const express = require("express");
 const server = express();
 const path = require("path");
 const fs = require("fs");
-const mongoose = require('mongoose');
+
+const {database} = require("./utils/database")
 const {userRoutes} = require("./Routes/userRoute")
 
 server.set("view engine","ejs");
@@ -13,4 +14,9 @@ server.use(express.urlencoded({extended:true}))
 
 server.use("/user",userRoutes); 
 
-server.listen(3002);
+database.sync().then((result)=>{
+    console.log(result);
+    server.listen(3002);
+}).catch((err)=>{
+    console.log(err)
+})

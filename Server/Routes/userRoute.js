@@ -20,6 +20,8 @@ Route.get("/profile",postRouteController.profileRoute)
 
 Route.post("/",postRouteController.formPost)
 
-Route.get("/personDetails/:ID",postRouteController.DynamicRoute)
+Route.get("/personDetails/:ID",postRouteController.DynamicRoute);
+
+Route.get("/profile/delete/:ID", postRouteController.deleteDynamicRoute);
 
 module.exports = {userRoutes:Route};
