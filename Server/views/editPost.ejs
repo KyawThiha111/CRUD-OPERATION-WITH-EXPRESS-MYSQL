@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("../PartialViews/head")%>
+<body>
+    <%- include("../PartialViews/nav")%>
+    
+    <h1>Edit Page</h1>
+    <form action="/user/profile/edit" method="post">
+        <input style="display: none;" name="userid" value="<%=matchedPost.id%>"/>
+        <label for="name">User Name:</label>
+        <input type="text" value="<%=matchedPost.username%>" id="name" name="username">
+        <label for="age">User Age:</label>
+        <input type="text" value="<%=matchedPost.age%>" placeholder="Your Name" id="age" name="age">
+        <label for="des">Description:</label>
+        <input type="text" value="<%=matchedPost.description%>" id="des" name="description"/>
+        <button>Submit</button>
+    </form>
+</body>
+</html>

@@ -24,4 +24,7 @@ Route.get("/personDetails/:ID",postRouteController.DynamicRoute);
 
 Route.get("/profile/delete/:ID", postRouteController.deleteDynamicRoute);
 
+Route.get("/profile/editForm/:ID", postRouteController.editDynamicRoute)
+
+Route.post("/profile/edit", postRouteController.editPostForm)
 module.exports = {userRoutes:Route};

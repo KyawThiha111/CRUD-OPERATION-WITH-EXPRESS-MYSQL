@@ -3,7 +3,11 @@ const { NUMBER } = require("sequelize")
 const POST = require("../MODEL/post")
 
 exports.profileRoute = (req,res)=>{
-    POST.findAll().then((posts)=>{
+    POST.findAll(
+        {order:[
+            ['createdAt','DESC']
+        ]}
+    ).then((posts)=>{
         res.render("profile", {user:posts, title: "Profile"})
     }).catch((err)=>{
         console.log(err)
@@ -44,4 +48,27 @@ exports.deleteDynamicRoute = (req,res)=>{
     }).catch((err)=>{
         console.log(err)
     })
+}
+
+
+exports.editDynamicRoute = (req,res)=>{
+    const postID = req.params.ID;
+    POST.findByPk(postID).then((result)=>{
+        res.render("editPost",{title:"Edit Page", matchedPost:result})
+    }).catch((err)=>{
+        console.log(err)
+    })
+}
+
+exports.editPostForm = (req,res)=>{
+   const {userid,username,age,description} = req.body;
+   POST.update({username:username,age:age,description:description},{
+    where:{
+        id:userid
+    }
+   }).then((result)=>{
+    res.redirect("/user/profile")
+   }).catch(err=>{
+    console.log(err)
+   })
 }
