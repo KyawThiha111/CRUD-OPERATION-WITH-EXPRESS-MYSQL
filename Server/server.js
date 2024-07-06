@@ -2,7 +2,7 @@ const express = require("express");
 const server = express();
 const path = require("path");
 const fs = require("fs");
-const mongoose = require('mongoose');
+
 const {userRoutes} = require("./Routes/userRoute")
 
 server.set("view engine","ejs");

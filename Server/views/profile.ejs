@@ -7,9 +7,11 @@
 
     <% if(user.length>0){%>
         <%user.forEach(element => {%>
-            <h1><%= element.username%></h1>
-            <h1><%= element.age%></h1>
+            <div class="postContainer"> 
+            <h1><%= element.title%></h1>
+            <h1><%= element.snippet%></h1>
             <button><a href="/user/personDetails/<%=element.id%>">See More</a></button>
+           </div> 
         <%})%>
     <%}else{%>
         <h1>No posts</h1>

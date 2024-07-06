@@ -1,31 +1,19 @@
-
-const POST = require("../MODEL/post")
-
+const POST = [];
 exports.profileRoute = (req,res)=>{
-    POST.getDataFun().then(([row])=>{
-        res.render("profile",{title:"profile",user:row})
-    }).catch(err=>{
-        console.log(err)
-    })
-    
+    res.render("profile",{title:"profile",user:POST})
 }
 
 exports.formPost = (req,res)=>{
-    let {username,age,description} = req.body;
-    const postObjToInsert = new POST(username,age,description);
-    postObjToInsert.setPost().then(()=>{
-        res.redirect("user/profile")
-    }).catch((err)=>{
-        console.log(err)
-    })
+    let post = req.body;
+    POST.push({...post, id:POST.length+1})
+    console.log(POST)
+    res.redirect("user/profile")
 }
 
 exports.DynamicRoute = (req,res)=>{
-    const id = Number(req.params.ID);
-    POST.getEachData(id).then(([row])=>{
-        console.log(row)
-        res.render("personDetail",{title:"Person Detail",matchedUser:row[0]});
-    }).catch((err)=>{
-        console.log(err)
-    })  
+    const ID = Number(req.params.ID);
+    const matchedUser = POST.filter(post=> post.id===ID);
+    console.log("Done")
+     console.log(matchedUser)
+     res.render("personDetail",{title:"Person Detail",matchedUser:matchedUser[0]});
 }
