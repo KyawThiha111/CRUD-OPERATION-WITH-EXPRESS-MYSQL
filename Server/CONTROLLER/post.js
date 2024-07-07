@@ -1,19 +1,29 @@
+const POSTCOLLECTION = require("../MODEL/post");
 const POST = [];
 exports.profileRoute = (req,res)=>{
-    res.render("profile",{title:"profile",user:POST})
+    POSTCOLLECTION.getPostAll().then((result)=>{
+        res.render("profile",{title:"Profile",posts:result})
+    })
 }
 
 exports.formPost = (req,res)=>{
-    let post = req.body;
-    POST.push({...post, id:POST.length+1})
-    console.log(POST)
-    res.redirect("user/profile")
+    const {title,snippet,blog} = req.body;
+    const post = new POSTCOLLECTION(title,snippet,blog);
+    post.setPost().then((result)=>{
+        console.log(result);
+        res.redirect("/user/profile")
+    })
+   .catch(err=>{
+    console.log(err)
+   })
 }
 
 exports.DynamicRoute = (req,res)=>{
-    const ID = Number(req.params.ID);
-    const matchedUser = POST.filter(post=> post.id===ID);
-    console.log("Done")
-     console.log(matchedUser)
-     res.render("personDetail",{title:"Person Detail",matchedUser:matchedUser[0]});
+    const id = req.params.ID;
+    POSTCOLLECTION.getEachPost(id).then((result)=>{
+        console.log(result)
+        res.render("personDetail",{title:"Each Post",matchedUser:result[0]})
+    }).catch((err)=>{
+        console.log(err)
+    })
 }

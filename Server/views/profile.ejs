@@ -5,12 +5,12 @@
     <%- include("../PartialViews/nav")%>
     <h2>Profile Page</h2>
 
-    <% if(user.length>0){%>
-        <%user.forEach(element => {%>
+    <% if(posts.length>0){%>
+        <%posts.forEach(element => {%>
             <div class="postContainer"> 
             <h1><%= element.title%></h1>
             <h1><%= element.snippet%></h1>
-            <button><a href="/user/personDetails/<%=element.id%>">See More</a></button>
+            <button><a href="/user/personDetails/<%=element._id%>">See More</a></button>
            </div> 
         <%})%>
     <%}else{%>
