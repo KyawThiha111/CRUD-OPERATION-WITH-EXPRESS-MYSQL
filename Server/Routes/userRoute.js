@@ -22,4 +22,10 @@ Route.post("/",postRouteController.formPost)
 
 Route.get("/personDetails/:ID",postRouteController.DynamicRoute)
 
+Route.get("/profile/postDetail/edit/:ID", postRouteController.getEditPage);
+
+Route.post("/profile/postDetail/edit/:ID",postRouteController.postEditPosts);
+
+Route.get("/profile/postDetail/delete/:ID",postRouteController.deletePost);
+
 module.exports = {userRoutes:Route};

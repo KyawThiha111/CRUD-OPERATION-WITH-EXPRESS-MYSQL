@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+ <%- include("../PartialViews/head")%>
+<body>
+<%- include("../PartialViews/nav")%>
+
+<form action="/user/profile/postDetail/edit/<%=result.id%>" method="post">
+    <input name="id" value="<%= result.id%>">
+    <label for="title">Title:</label>
+   <input name="title" id="title" value="<%= result.title%>">
+   <label for="snippet">Snippet:</label>
+   <input name="snippet" id="snippet" value="<%= result.snippet%>">
+   <label for="blog">Blog:</label>
+   <input name="blog" id="blog" value="<%= result.blog%>">
+   <button>Add</button>
+</form>
+</body>
+</html>

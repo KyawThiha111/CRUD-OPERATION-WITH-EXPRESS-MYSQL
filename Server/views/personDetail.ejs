@@ -6,6 +6,8 @@
     <h2>Details</h2>
     <h2><%= matchedUser.title%></h2> 
     <h2><%= matchedUser.snippet%></h2> 
-    <h2><%= matchedUser.blog%></h2> 
+    <h2><%= matchedUser.blog%></h2>
+    <button><a href="/user/profile/postDetail/edit/<%= matchedUser.id%>">Edit Post</a></button> 
+    <button><a href="/user/profile/postDetail/delete/<%= matchedUser.id%>">Delete Post</a></button> 
 </body>
 </html>

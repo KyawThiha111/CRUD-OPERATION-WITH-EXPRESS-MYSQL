@@ -1,19 +1,53 @@
-const POST = [];
+
+const POST = require("../MODEL/post");
+
 exports.profileRoute = (req,res)=>{
-    res.render("profile",{title:"profile",user:POST})
+  POST.find().sort({title:-1}).then((result)=>{
+    res.render("profile",{posts:result,title:"Profile"})
+  }).catch(err=> console.log(err))
 }
 
 exports.formPost = (req,res)=>{
-    let post = req.body;
-    POST.push({...post, id:POST.length+1})
-    console.log(POST)
-    res.redirect("user/profile")
+    let {title,snippet,blog} = req.body;
+    POST.create({title,snippet,blog}).then((result)=>{
+    console.log(result)
+    res.redirect("/user/profile")
+    }).catch(err=>{
+        console.log(err)
+    })
 }
 
 exports.DynamicRoute = (req,res)=>{
-    const ID = Number(req.params.ID);
-    const matchedUser = POST.filter(post=> post.id===ID);
-    console.log("Done")
-     console.log(matchedUser)
-     res.render("personDetail",{title:"Person Detail",matchedUser:matchedUser[0]});
+    const ID = req.params.ID;
+    POST.findById(ID).then(result=>{
+        res.render("personDetail",{title:"Person Detail",matchedUser:result});  
+    })
 }
+
+ exports.getEditPage = (req,res)=>{
+    const ID = req.params.ID;
+    POST.findById(ID).then((result)=>{
+        console.log(result);
+        res.render("editPost",{title:"edit Page",result})
+    })
+ }
+
+ exports.postEditPosts = (req,res)=>{
+    const {title,snippet,blog} = req.body;
+    const ID = req.params.ID;
+    POST.findByIdAndUpdate(ID,{title,snippet,blog}).then((result)=>{
+        console.log(result);
+        res.redirect("/user/profile")
+    }).then(err=>{
+        console.log(err)
+    })
+ }
+
+ exports.deletePost = (req,res)=>{
+    const ID = req.params.ID;
+    POST.findByIdAndDelete(ID).then(()=>{
+      res.redirect("/user/profile")
+    }).catch(err=>{
+        console.log(err)
+    })
+ }
