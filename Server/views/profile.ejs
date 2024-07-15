@@ -10,6 +10,7 @@
             <div class="postContainer"> 
             <h1><%= element.title%></h1>
             <h1><%= element.snippet%></h1>
+            <p>Post by @<%= element.userid.username%></p>
             <button><a href="/user/personDetails/<%=element.id%>">See More</a></button>
            </div> 
         <%})%>

@@ -2,16 +2,17 @@
 const POST = require("../MODEL/post");
 
 exports.profileRoute = (req,res)=>{
-  POST.find().sort({title:-1}).then((result)=>{
-    res.render("profile",{posts:result,title:"Profile"})
+  POST.find().select("title snippet").populate("userid","username").sort({createdAt:"desc"}).then((result)=>{
+    res.render("profile",{posts:result,title:"Profile"});
+    console.log(result);
   }).catch(err=> console.log(err))
 }
 
 exports.formPost = (req,res)=>{
     let {title,snippet,blog} = req.body;
-    POST.create({title,snippet,blog}).then((result)=>{
-    console.log(result)
-    res.redirect("/user/profile")
+    POST.create({title,snippet,blog,userid:req.user}).then((result)=>{
+    console.log(result);
+    res.redirect("/user/profile");
     }).catch(err=>{
         console.log(err)
     })

@@ -13,6 +13,11 @@ const PostSchema = new Schema({
         type: String,
         required: true
     },
-})
+    userid:{
+        type: Schema.Types.ObjectId,
+        ref: "users",
+        required: "true"
+    }
+},{timestamps:true})
 
 module.exports = model("posts", PostSchema)
