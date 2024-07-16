@@ -2,8 +2,9 @@
 const POST = require("../MODEL/post");
 
 exports.profileRoute = (req,res)=>{
+    const cookie = req.get("Cookie").split("=")[1].trim()==="true";
   POST.find().select("title snippet").populate("userid","username").sort({createdAt:"desc"}).then((result)=>{
-    res.render("profile",{posts:result,title:"Profile"});
+    res.render("profile",{posts:result,title:"Profile",cookie});
     console.log(result);
   }).catch(err=> console.log(err))
 }

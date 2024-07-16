@@ -9,9 +9,9 @@ require("dotenv").config();
 const mongoose= require("mongoose");
 const USER = require("./MODEL/user");
 const {userRoutes} = require("./Routes/userRoute");
-
+const {AuthRouters} = require("./Routes/loginRoute");
 server.set("view engine","ejs");
-server.set("views","views")
+
 server.use(express.static(path.join(__dirname,"Public")));
 server.use(express.urlencoded({extended:true}))
 
@@ -21,6 +21,7 @@ server.use((req,res,next)=>{
     next();
    })
 })
+server.use(AuthRouters);
 server.use("/user",userRoutes); 
 
 server.use((req,res,next)=>{
