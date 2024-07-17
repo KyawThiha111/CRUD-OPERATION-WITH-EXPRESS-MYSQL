@@ -2,30 +2,38 @@
 <html lang="en">
     <%- include("../PartialViews/head")%>
 <body>
-    <%if(cookie){%>
-    <%- include("../PartialViews/nav")%>
-    <%} %>
-    <h2>Profile Page</h2>
-    <%if(!cookie){%>
-        <h3><a href="/login">Login</a></h3>
-     <%} %>
 
-     <%if(cookie){%>
-        <% if(posts.length>0){%>
-            <%posts.forEach(element => {%>
-                <div class="postContainer"> 
-                <h1><%= element.title%></h1>
-                <h1><%= element.snippet%></h1>
-                <p>Post by @<%= element.userid.username%></p>
-                <button><a href="/user/personDetails/<%=element.id%>">See More</a></button>
-               </div> 
-            <%})%>
-        <%}else{%>
-            <h1>No posts</h1>
-        <%}%>
-        <p> <a href="/user/update_page">Add Post</a></p>
-     <%} %>
+   <%if(isLogin){%>
+    <%- include("../PartialViews/nav")%>
+    <%}%>
+
+    <h2>Profile Page</h2>
    
-    
+        <%if(isLogin){%>
+           <form action="/logout" method="post">
+            <button>Log out</button>
+           </form>
+        <%}%>
+      
+        <%if(!isLogin){%>
+            <h3><a href="/login">Login</a></h3>
+        <%}%>
+
+        <%if(isLogin){%>
+            <% if(posts.length>0){%>
+                <%posts.forEach(element => {%>
+                    <div class="postContainer"> 
+                    <h1><%= element.title%></h1>
+                    <h1><%= element.snippet%></h1>
+                    <p>Post by @<%= element.userid.username%></p>
+                    <button><a href="/user/personDetails/<%=element.id%>">See More</a></button>
+                   </div> 
+                <%})%>
+            <%}else{%>
+                <h1>No posts</h1>
+            <%}%>
+            <p> <a href="/user/update_page">Add Post</a></p>
+        <%}%>
+
 </body>
 </html>

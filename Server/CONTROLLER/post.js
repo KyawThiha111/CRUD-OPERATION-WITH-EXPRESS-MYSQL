@@ -2,10 +2,11 @@
 const POST = require("../MODEL/post");
 
 exports.profileRoute = (req,res)=>{
-    const cookie = req.get("Cookie").split("=")[1].trim()==="true";
+
   POST.find().select("title snippet").populate("userid","username").sort({createdAt:"desc"}).then((result)=>{
-    res.render("profile",{posts:result,title:"Profile",cookie});
+    res.render("profile",{posts:result,title:"Profile",isLogin:req.session.isLogin===true});
     console.log(result);
+    console.log(req.session)
   }).catch(err=> console.log(err))
 }
 

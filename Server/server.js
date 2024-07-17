@@ -7,13 +7,29 @@ require("dotenv").config();
 
 /* Adding Mongoose */
 const mongoose= require("mongoose");
+const session = require("express-session");
+const mongoDBstore = require("connect-mongodb-session")(session);
+
+const store = new mongoDBstore({
+    uri:process.env.SESSION_URI,
+    collection:'sessions'
+})
+server.set("view engine","ejs");
+
 const USER = require("./MODEL/user");
 const {userRoutes} = require("./Routes/userRoute");
 const {AuthRouters} = require("./Routes/loginRoute");
-server.set("view engine","ejs");
+
 
 server.use(express.static(path.join(__dirname,"Public")));
 server.use(express.urlencoded({extended:true}))
+
+server.use(session({
+    secret:process.env.SECRET_KEY,
+    resave:false,
+    saveUninitialized:true,
+    store:store
+}))
 
 server.use((req,res,next)=>{
    USER.findById("66947eb9e3659ea21de0e2df").then((user)=>{

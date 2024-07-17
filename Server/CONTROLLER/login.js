@@ -4,6 +4,12 @@ exports.getLoginPage = (req,res)=>{
 }
 
 exports.postLoginData = (req,res)=>{
-    res.setHeader("Set-Cookie","isLogin=true");
+    req.session.isLogin = true;
     res.redirect("/user/profile")
+}
+
+exports.postLogout = (req,res)=>{
+    req.session.destroy((result)=>{
+        res.redirect("/user/profile")
+    });
 }
